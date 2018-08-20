@@ -1,0 +1,5 @@
+allprojects {
+    ext.kotlin_version = "1.2.60"
+    group 'com.github.lgdd.liferay'
+    version '1.0.0'
+}

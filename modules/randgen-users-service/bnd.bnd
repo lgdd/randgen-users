@@ -1,0 +1,11 @@
+Bundle-Name: RandGen Users Service
+Bundle-SymbolicName: com.github.lgdd.liferay.randgen.users.service
+Bundle-Version: 1.0.0
+Import-Package:\
+	!kotlin.*,\
+	!org.apache.commons.io.*,\
+	*
+Conditional-Package:\
+	org.apache.commons.io.*,\
+	kotlin.*
+-sources: true
