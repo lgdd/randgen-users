@@ -15,21 +15,38 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.HttpClients
 import org.osgi.service.component.annotations.Component
 import java.nio.charset.Charset
+import java.util.*
 
+/**
+ * Generates random users from an external API (https://randomuser.me/api/).
+ *
+ * @see [RandGenUsersApi]
+ */
 @Component(
         immediate = true,
         property = [],
         service = [(RandGenUsersApi::class)]
 )
-class RandomUsersGeneratorImpl : RandGenUsersApi {
+class RandGenUsersImpl : RandGenUsersApi {
 
+    /**
+     * Generates between 2 and 10 random users.
+     *
+     * @return list of Liferay users added.
+     */
     override fun generate(): MutableList<User> {
-        val httpGet = HttpGet("$BASE_URL?$NAT_PARAMS")
+        val size = Random().nextInt(9) + 2
+        val httpGet = HttpGet("$BASE_URL?$NAT_PARAMS&results=$size")
         log.debug("Fetching a random user from $BASE_URL")
         val response = _httpClient.execute(httpGet)
         return addUsers(response)
     }
 
+    /**
+     * Generates [size] random users.
+     *
+     * @return list of Liferay users added.
+     */
     override fun generate(size: Int): MutableList<User> {
         val httpGet = HttpGet("$BASE_URL?nat=$NAT_PARAMS&results=$size")
         log.debug("Fetching random $size users from $BASE_URL")
@@ -37,6 +54,11 @@ class RandomUsersGeneratorImpl : RandGenUsersApi {
         return addUsers(response)
     }
 
+    /**
+     * Adds Liferay users extracted from [response] as json objects.
+     *
+     * @return list of Liferay users added.
+     */
     private fun addUsers(response: CloseableHttpResponse): MutableList<User> {
         val users = listOf<User>().toMutableList()
         response.use {
@@ -52,6 +74,11 @@ class RandomUsersGeneratorImpl : RandGenUsersApi {
         return users
     }
 
+    /**
+     * Adds a Liferay user from a [userJson].
+     *
+     * @return Liferay user added.
+     */
     private fun addUser(userJson: JSONObject): User {
         val companyId = PortalUtil.getDefaultCompanyId()
         val userId = UserLocalServiceUtil.getDefaultUserId(companyId)
@@ -70,7 +97,10 @@ class RandomUsersGeneratorImpl : RandGenUsersApi {
         return user
     }
 
-    private fun updateUserPortrait(user:User, userJson: JSONObject) {
+    /**
+     * Updates [user] portrait with [userJson]'s picture.
+     */
+    private fun updateUserPortrait(user: User, userJson: JSONObject) {
         val imageUrl = userJson.getJSONObject("picture").getString("large")
         val httpGet = HttpGet(imageUrl)
         val response = _httpClient.execute(httpGet)
@@ -88,7 +118,7 @@ class RandomUsersGeneratorImpl : RandGenUsersApi {
     companion object {
 
         @JvmStatic
-        private val log = LogFactoryUtil.getLog(RandomUsersGeneratorImpl::class.java)
+        private val log = LogFactoryUtil.getLog(RandGenUsersImpl::class.java)
 
         @JvmStatic
         private val BASE_URL = "https://randomuser.me/api/"
