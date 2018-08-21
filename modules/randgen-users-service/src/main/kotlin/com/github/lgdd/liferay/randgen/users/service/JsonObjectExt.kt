@@ -12,30 +12,14 @@ fun JSONObject.getLocale(): Locale {
     return if (locale.isEmpty()) LocaleUtil.getDefault() else locale[0]
 }
 
-fun JSONObject.getPassword(): String {
-    return this.getJSONObject("login").getString("password")
-}
+fun JSONObject.getEmail() = "${this.getScreenName()}@example.com"
 
-fun JSONObject.getEmail(): String {
-    return "${this.getScreenName()}@example.com"
-}
+fun JSONObject.getScreenName() = this.getJSONObject("login").getString("username")
 
-fun JSONObject.getScreenName(): String {
-    return this.getJSONObject("login").getString("username")
-}
+fun JSONObject.getFirstName() = this.getJSONObject("name").getString("first").capitalize()
 
-fun JSONObject.getFirstName(): String {
-    return this.getJSONObject("name").getString("first").capitalize()
-}
+fun JSONObject.getLastName() = this.getJSONObject("name").getString("last").capitalize()
 
-fun JSONObject.getLastName(): String {
-    return this.getJSONObject("name").getString("last").capitalize()
-}
+fun JSONObject.isMale() = "male" == this.getString("gender")
 
-fun JSONObject.isMale(): Boolean {
-    return "male" == this.getString("gender")
-}
-
-fun JSONObject.getDateOfBirth(): ZonedDateTime {
-    return ZonedDateTime.parse(this.getJSONObject("dob").getString("date"))
-}
+fun JSONObject.getDateOfBirth() = ZonedDateTime.parse(this.getJSONObject("dob").getString("date"))
