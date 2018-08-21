@@ -1,6 +1,9 @@
 # RandGen Users
-A simple random user generator for Liferay 7.x. 
 
+A simple random user generator for Liferay 7.x.
+
+![gif](doc/randgen-users.gif)
+ 
 Each generated user is randomly assigned to existing organizations, user groups and roles.
 
 If you want more, you should take a look at this awesome project: **[Dummy Factory](https://github.com/yasuflatland-lf/liferay-dummy-factory)**.
