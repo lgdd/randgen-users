@@ -1,5 +1,7 @@
 # RandGen Users
-Random user generator for Liferay 7.x
+A simple random user generator for Liferay 7.x.
+
+If you want more, you should take a look at this awesome project: **[Dummy Factory](https://github.com/yasuflatland-lf/liferay-dummy-factory)**.
 
 ## Modules
 
