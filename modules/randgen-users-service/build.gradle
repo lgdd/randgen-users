@@ -14,8 +14,8 @@ apply plugin: 'idea'
 dependencies {
     compileOnly project(':modules:randgen-users-api')
     compileOnly group: "org.jetbrains.kotlin", name: "kotlin-osgi-bundle", version: "$kotlin_version"
-    compileOnly group: 'org.apache.httpcomponents', name: 'httpclient-osgi', version: '4.5.+'
     compileOnly group: 'org.apache.httpcomponents', name: 'httpcore-osgi', version: '4.4.+'
+    compileOnly group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.+'
     compileOnly group: 'commons-io', name: 'commons-io', version: '2.6'
     compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.0.0"
     compileOnly group: "org.osgi", name: "org.osgi.core", version: "6.0.0"
