@@ -21,6 +21,6 @@ g! randgen:users 10
 - 7.0.0-ga1
 - 7.1.0-ga1
 
-## DXP
+### DXP
 
 - 7.1.x
